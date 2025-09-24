@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Threading;
-class Program
+class RainSimulation
 {
     static void Main()
     {
-        string line = "---------";
-        int length=line.Length;
-        for (int i = 0; i < length; i++)
+        string[] frames = new string[]
         {
-            Console.Write("\r" + new string(' ',i) + "C" + line.Substring(i + 1));
-            Thread.Sleep(200);
-            Console.Write("\r"+new string(' ',i+1)+line.Substring(i+1));
-            Thread.Sleep(200);
-        }
-        Console.Write("\r" + new string(' ',length) + "C");
-        Console.WriteLine("\n\nGame Over! Pac-Man ate all the dots!");
-    }
+         @"
+  |    |   |  |     |  |   
+    |     |     |   |      
+ |     |    |      |    |  
+    |    |    |      |     
+ |      |     |    |    |  
+   |   |    |    |     |   
+     |     |      |    |   
+  |    |     |     |    |  
+" }; 
+Console.CursorVisible = false;
+for (int i = 0; i < 50; i++)
+{
+    foreach (string frame in frames)
+    {
+        Console.SetCursorPosition(0, 0);
+        Console.WriteLine("\r"+frame);
+        Thread.Sleep(50); } }
+Console.CursorVisible = true;
+}
 }
