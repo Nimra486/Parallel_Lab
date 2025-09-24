@@ -1,27 +1,19 @@
 ﻿using System;
 using System.Threading;
-
 class Program
 {
     static void Main()
     {
-        Console.Write("Enter your name: ");
-        string username = Console.ReadLine();
-
-        for (int i = 5; i >= 0; i--)
+        string line = "---------";
+        int length=line.Length;
+        for (int i = 0; i < length; i++)
         {
-            Console.WriteLine(i);
-
-            if (i == 5)
-            {
-                Thread.Sleep(500); 
-            }
-            else
-            {
-                Thread.Sleep(1000); 
-            }
+            Console.Write("\r" + new string(' ',i) + "C" + line.Substring(i + 1));
+            Thread.Sleep(200);
+            Console.Write("\r"+new string(' ',i+1)+line.Substring(i+1));
+            Thread.Sleep(200);
         }
-
-        Console.WriteLine($"Welcome {username}");
+        Console.Write("\r" + new string(' ',length) + "C");
+        Console.WriteLine("\n\nGame Over! Pac-Man ate all the dots!");
     }
 }
