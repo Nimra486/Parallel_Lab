@@ -1,28 +1,25 @@
-﻿//Design and implement a simple UDP-based client-server program in C# to demonstrate that UDP does not guarantee reliable data delivery
-//1. The client rapidly sends a sequence of numbered messages(e.g "Packet1"."Packet 2",...."Packet 100") to the server using UDP datagrams.
-//2. The server receives these packets and displays each message as it arrives.
-//3. After transmission, the number of received packets is compared to the number of sent packets to observe any out-of-order arrival.
+﻿//Design and implement a UDP-based client server application in C# where the client and server communicate using datagrams
+//1. The client sends an integer value to the server.
+//2.The server recieves this integer, then prompts the user(on the server) to enter another integer value.
+//3. The server adds both integer values and sends the sum back to the client.
+//4. The client then displays the received sum o its console.
 using System;
 using System.Net;
-using System.Text;
 using System.Net.Sockets;
-using System.Threading;
-class UDPClientLossDemo
+using System.Text;
+class UDPClient
 {
     static void Main()
     {
         UdpClient client = new UdpClient();
-        client.Connect("192.168.18.39",9000);
-        for(int i = 1; i <= 50; i++)
-        {
-            string msg = $"Packet{i}";
-            byte[] data = Encoding.ASCII.GetBytes(msg);
-            client.Send(data, data.Length);
-        }
-        Console.WriteLine("All packets sent!");
+        client.Connect("192.168.18.39", 9000);
+        Console.Write("Enter Your Integer value(client side):");
+        int ClientValue = int.Parse(Console.ReadLine());
+        byte[] data = Encoding.ASCII.GetBytes(ClientValue.ToString());
+        IPEndPoint serverEP = new IPEndPoint(IPAddress.Any, 0);
+        byte[] receivedData = client.Receive(ref serverEP);
+        string result = Encoding.ASCII.GetString(receivedData);
+        Console.WriteLine($"Sum received from server:{result}");
         client.Close();
     }
 }
-
-
-
